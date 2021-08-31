@@ -5,10 +5,8 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const drawerWidth = 240;
 
@@ -17,18 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -42,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    paddingTop: theme.spacing(7),
   },
   drawerHeader: {
     display: 'flex',
@@ -74,11 +62,7 @@ function AppDrawer() {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
+    setOpen(!open);
   };
 
   return (
@@ -86,9 +70,7 @@ function AppDrawer() {
       <CssBaseline />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
+        className={classes.appBar}
       >
         <Toolbar>
           <IconButton
@@ -96,7 +78,7 @@ function AppDrawer() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
@@ -111,12 +93,6 @@ function AppDrawer() {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
       </Drawer>
       <main
         className={clsx(classes.content, {
