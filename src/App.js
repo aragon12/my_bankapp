@@ -1,11 +1,15 @@
 import AppDrawer from "./AppDrawer";
-import Login from "./Login";
+import { CssBaseline } from "@material-ui/core";
+import Login from "./Login"
 
 function App() {
-  return(
+  return (
     <div>
-      <AppDrawer />
-      <Login />
+      <AppDrawer open={false}>
+        <CssBaseline />
+        <Login />
+      </AppDrawer>
+
     </div>
   )
 }

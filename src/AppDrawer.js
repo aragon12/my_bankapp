@@ -1,12 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 const drawerWidth = 240;
 
@@ -57,12 +58,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AppDrawer() {
+const darkTheme = {
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#90caf9'
+    },
+    secondary: {
+      main: '#f48fb1',
+    },
+    error: {
+      main: '#f44336',
+    },
+  },
+}
+
+const lightTheme = {
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#1976d2'
+    }
+  },
+}
+
+function AppDrawer(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(props.open);
+  const [darkMode, setDarkMode] = React.useState(false);
+  const homeTheme = createTheme(darkMode? darkTheme: lightTheme);
 
   const handleDrawerOpen = () => {
     setOpen(!open);
+  };
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
   };
 
   return (
@@ -75,32 +106,43 @@ function AppDrawer() {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
+          <div>
+          <IconButton
+            color="inherit"
+            className={classes.menuButton}
+            onClick={toggleTheme}
+          >
+            <Brightness4Icon />
+          </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-      </main>
+      <ThemeProvider theme={homeTheme}>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+        </Drawer>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          {props.children}
+        </main>
+      </ThemeProvider>
     </div>
   );
 }
