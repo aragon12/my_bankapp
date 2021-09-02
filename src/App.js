@@ -1,15 +1,12 @@
 import AppDrawer from "./AppDrawer";
-import { CssBaseline } from "@material-ui/core";
-import Login from "./Login"
+import BalTile from "./BalTile";
 
 function App() {
   return (
     <div>
-      <AppDrawer open={false}>
-        <CssBaseline />
-        <Login />
+      <AppDrawer open={true}>
+        <BalTile amount="7,345.00" />
       </AppDrawer>
-
     </div>
   )
 }

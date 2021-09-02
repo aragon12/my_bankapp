@@ -8,6 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import { Typography } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -18,11 +19,11 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  appBarHead: {
+    flexGrow: 1,
   },
-  hide: {
-    display: 'none',
+  menuButton: {
+    marginRight: theme.spacing(1),
   },
   drawer: {
     width: drawerWidth,
@@ -88,7 +89,7 @@ function AppDrawer(props) {
   const [darkMode, setDarkMode] = React.useState(false);
   const homeTheme = createTheme(darkMode? darkTheme: lightTheme);
 
-  const handleDrawerOpen = () => {
+  const toggleDrawer = () => {
     setOpen(!open);
   };
 
@@ -106,21 +107,21 @@ function AppDrawer(props) {
         <Toolbar>
           <IconButton
             color="inherit"
-            onClick={handleDrawerOpen}
+            onClick={toggleDrawer}
             edge="start"
             className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
-          <div>
+          <Typography variant="h6" className={classes.appBarHead}>
+            Bank App
+          </Typography>
           <IconButton
             color="inherit"
-            className={classes.menuButton}
             onClick={toggleTheme}
           >
             <Brightness4Icon />
           </IconButton>
-          </div>
         </Toolbar>
       </AppBar>
       <ThemeProvider theme={homeTheme}>
