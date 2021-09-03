@@ -4,13 +4,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flexDirection: 'column',
-    height: 240,
-    width: 300,
+    width: 340,
   },
   balbtn: {
     color: theme.palette.primary.main,
@@ -24,8 +24,12 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     paddingTop: theme.spacing(2),
   },
+  title: {
+    marginBottom: theme.spacing(3),
+  }
 }));
 
 function BalTile(props) {
@@ -39,15 +43,21 @@ function BalTile(props) {
             variant="h5"
             color="primary"
             gutterBottom
+            className={classes.title}
           >
             Balance
-          </Typography>
-          <Typography color="textSecondary">
-            current amount:
           </Typography>
           <Typography variant="h3">
             ₹ {props.amount}
           </Typography>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="MPIN"
+            inputProps={{maxLength: 4}}
+          />
         </div>
         <div className={classes.btncont}>
           <Button
