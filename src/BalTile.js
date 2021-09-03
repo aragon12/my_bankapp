@@ -7,44 +7,57 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    paddingTop: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    paddingBottom: theme.spacing(1),
-    paddingRight: theme.spacing(12),
-    display: "inline-block",
+    display: 'flex',
+    flexDirection: 'column',
+    height: 240,
+    width: 300,
   },
   balbtn: {
-    padding: theme.spacing(1),
-    marginTop: theme.spacing(5),
     color: theme.palette.primary.main,
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    textTransform: 'none',
+  },
+  btncont: {
+    textAlign: 'right',
+  },
+  content: {
+    flexGrow: 1,
+    paddingLeft: theme.spacing(3),
+    paddingTop: theme.spacing(2),
   },
 }));
 
 function BalTile(props) {
   const classes = useStyles();
-  return(
+  return (
     <div>
       <CssBaseline />
-        <Paper className={classes.paper}>
+      <Paper className={classes.paper}>
+        <div className={classes.content}>
           <Typography
-          variant="h6"
-          color="primary"
-          gutterBottom>
+            variant="h5"
+            color="primary"
+            gutterBottom
+          >
             Balance
           </Typography>
           <Typography color="textSecondary">
-          current balance is:
-        </Typography>
-          <Typography variant="h4">
+            current amount:
+          </Typography>
+          <Typography variant="h3">
             ₹ {props.amount}
           </Typography>
-            <Button
-            size='small'
+        </div>
+        <div className={classes.btncont}>
+          <Button
+            size='large'
             endIcon={<ChevronRightIcon />}
             className={classes.balbtn}>
-              check balance
-            </Button>
-        </Paper>
+            view balance
+          </Button>
+        </div>
+      </Paper>
     </div>
   );
 };
