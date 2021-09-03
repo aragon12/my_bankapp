@@ -34,6 +34,19 @@ const useStyles = makeStyles((theme) => ({
 
 function BalTile(props) {
   const classes = useStyles();
+  var errText = "";
+
+  const numFilter = (event) => {
+    //only allows numbers in input field
+    if (!/[0-9][0-9]*/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  if (props.error) {
+    errText = "Invalid MPIN"
+  }
+
   return (
     <div>
       <CssBaseline />
@@ -55,8 +68,11 @@ function BalTile(props) {
             margin="normal"
             required
             fullWidth
-            label="MPIN"
-            inputProps={{maxLength: 4}}
+            label="4 Digit MPIN"
+            onKeyPress={numFilter}
+            inputProps={{ maxLength: 4 }}
+            error={props.error}
+            helperText={errText}
           />
         </div>
         <div className={classes.btncont}>
