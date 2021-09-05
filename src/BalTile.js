@@ -7,11 +7,12 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TextField from "@material-ui/core/TextField";
 import { useState } from "react";
 
+const MPIN_LENGTH = 4;
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flexDirection: 'column',
-    width: 340,
   },
   balbtn: {
     color: theme.palette.primary.main,
@@ -44,9 +45,9 @@ function BalTile(props) {
       return;
     }
     setMpin(event.target.value);
-    if(event.target.value.length === 4){
+    if (event.target.value.length === MPIN_LENGTH) {
       setViewBalBtn(false);
-    }else{
+    } else {
       setViewBalBtn(true);
     }
   }
@@ -60,48 +61,45 @@ function BalTile(props) {
   }
 
   return (
-    <div>
+    <Paper className={classes.paper}>
       <CssBaseline />
-      <Paper className={classes.paper}>
-        <div className={classes.content}>
-          <Typography
-            variant="h5"
-            color="primary"
-            gutterBottom
-            className={classes.title}
-          >
-            Balance
-          </Typography>
-          <Typography variant="h3">
-            ₹ {props.amount}
-          </Typography>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="4 Digit MPIN"
-            type="password"
-            inputProps={{ maxLength: 4 }}
-            error={props.error}
-            helperText={errText}
-            value={mpin}
-            onInput={handleInput}
-          />
-        </div>
-        <div className={classes.btncont}>
-          <Button
-            size='large'
-            endIcon={<ChevronRightIcon />}
-            className={classes.balbtn}
-            disabled={viewBalBtn}
-            onClick={handleBtnClick(mpin)}
-          >
-            view balance
-          </Button>
-        </div>
-      </Paper>
-    </div>
+      <div className={classes.content}>
+        <Typography
+          variant="h5"
+          color="primary"
+          className={classes.title}
+        >
+          Balance
+        </Typography>
+        <Typography variant="h3">
+          ₹ {props.amount}
+        </Typography>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          label="4 Digit MPIN"
+          type="password"
+          inputProps={{ maxLength: MPIN_LENGTH }}
+          error={props.error}
+          helperText={errText}
+          value={mpin}
+          onInput={handleInput}
+        />
+      </div>
+      <div className={classes.btncont}>
+        <Button
+          size='large'
+          endIcon={<ChevronRightIcon />}
+          className={classes.balbtn}
+          disabled={viewBalBtn}
+          onClick={props.onClick ? handleBtnClick(mpin): undefined}
+        >
+          view balance
+        </Button>
+      </div>
+    </Paper>
   );
 };
 
