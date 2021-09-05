@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TextField from "@material-ui/core/TextField";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,14 +34,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function BalTile(props) {
+  const [mpin, setMpin] = useState("");
+  const [viewBalBtn, setViewBalBtn] = useState(true);
   const classes = useStyles();
   var errText = "";
 
-  const numFilter = (event) => {
-    //only allows numbers in input field
-    if (!/[0-9][0-9]*/.test(event.key)) {
-      event.preventDefault();
+  const handleInput = (event) => {
+    if (!/^\d*$/.test(event.target.value)) {
+      return;
     }
+    setMpin(event.target.value);
+    if(event.target.value.length === 4){
+      setViewBalBtn(false);
+    }else{
+      setViewBalBtn(true);
+    }
+  }
+
+  const handleBtnClick = (mpin) => (event) => {
+    props.onClick(mpin);
   }
 
   if (props.error) {
@@ -69,17 +81,22 @@ function BalTile(props) {
             required
             fullWidth
             label="4 Digit MPIN"
-            onKeyPress={numFilter}
+            type="password"
             inputProps={{ maxLength: 4 }}
             error={props.error}
             helperText={errText}
+            value={mpin}
+            onInput={handleInput}
           />
         </div>
         <div className={classes.btncont}>
           <Button
             size='large'
             endIcon={<ChevronRightIcon />}
-            className={classes.balbtn}>
+            className={classes.balbtn}
+            disabled={viewBalBtn}
+            onClick={handleBtnClick(mpin)}
+          >
             view balance
           </Button>
         </div>
