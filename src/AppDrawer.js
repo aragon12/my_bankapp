@@ -87,7 +87,7 @@ function AppDrawer(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(props.open);
   const [darkMode, setDarkMode] = React.useState(false);
-  const homeTheme = createTheme(darkMode? darkTheme: lightTheme);
+  const homeTheme = createTheme(darkMode ? darkTheme : lightTheme);
 
   const toggleDrawer = () => {
     setOpen(!open);

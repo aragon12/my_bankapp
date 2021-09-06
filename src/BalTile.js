@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btncont: {
     textAlign: 'right',
+    marginTop: theme.spacing(1),
   },
   content: {
     flexGrow: 1,
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
   },
   title: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(5.5),
   }
 }));
 
@@ -94,7 +95,7 @@ function BalTile(props) {
           endIcon={<ChevronRightIcon />}
           className={classes.balbtn}
           disabled={viewBalBtn}
-          onClick={props.onClick ? handleBtnClick(mpin): undefined}
+          onClick={props.onClick ? handleBtnClick(mpin) : undefined}
         >
           view balance
         </Button>

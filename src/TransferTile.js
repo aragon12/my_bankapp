@@ -8,17 +8,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import HistoryIcon from '@material-ui/icons/History';
 
 const useStyles = makeStyles((theme) => ({
-  header: {
-    display: "flex",
+  title: {
     paddingTop: theme.spacing(2),
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(3),
-  },
-  title: {
-    flexGrow: 1,
   },
   mlist: {
     paddingLeft: theme.spacing(1),
@@ -28,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
   },
   accbtn: {
     color: theme.palette.primary.main,
-    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginRight: theme.spacing(1),
     textTransform: 'none',
@@ -43,23 +36,25 @@ function TransferTile() {
 
   return (
     <Paper>
-      <div className={classes.header}>
-        <Typography
-          variant="h5"
-          color="primary"
-          className={classes.title}
-        >
-          Money Transfer
-        </Typography>
-        <HistoryIcon color="inherit" />
-        <Typography color="textSecondary">recently added</Typography>
-      </div>
-      <List className={classes.mlist}>
+      <Typography
+        variant="h5"
+        color="primary"
+        className={classes.title}
+      >
+        Money Transfer
+      </Typography>
+      <List dense className={classes.mlist}>
         <ListItem button>
           <ListItemAvatar>
             <Avatar className={classes.avatar} />
           </ListItemAvatar>
           <ListItemText primary="Shubham Mishra" secondary="XXXXX856" />
+        </ListItem>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar className={classes.avatar} />
+          </ListItemAvatar>
+          <ListItemText primary="Harshit" secondary="XXXXX349" />
         </ListItem>
         <ListItem button>
           <ListItemAvatar>
