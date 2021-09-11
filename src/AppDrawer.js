@@ -1,6 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
+import useTheme from '@material-ui/core/styles/useTheme';
+import createTheme from '@material-ui/core/styles/createTheme';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,7 +11,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
-import { Typography } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Typography from '@material-ui/core/Typography';
 
 const drawerWidth = 240;
 
@@ -86,11 +90,20 @@ const lightTheme = {
 function AppDrawer(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(props.open);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
   const [darkMode, setDarkMode] = React.useState(false);
   const homeTheme = createTheme(darkMode ? darkTheme : lightTheme);
+  const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
 
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const toggleMobileDrawer = (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setMobileOpen(!mobileOpen);
   };
 
   const toggleTheme = () => {
@@ -107,7 +120,7 @@ function AppDrawer(props) {
         <Toolbar>
           <IconButton
             color="inherit"
-            onClick={toggleDrawer}
+            onClick={isMobile ? toggleMobileDrawer : toggleDrawer}
             edge="start"
             className={classes.menuButton}
           >
@@ -127,17 +140,20 @@ function AppDrawer(props) {
       <ThemeProvider theme={homeTheme}>
         <Drawer
           className={classes.drawer}
-          variant="persistent"
+          variant={isMobile ? "temporary" : "persistent"}
           anchor="left"
-          open={open}
+          open={isMobile ? mobileOpen : open}
           classes={{
             paper: classes.drawerPaper,
           }}
+          onClose={toggleMobileDrawer}
         >
         </Drawer>
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
+          }, {
+            [classes.contentShift]: isMobile,
           })}
         >
           <div className={classes.drawerHeader} />
