@@ -1,5 +1,3 @@
-import React from 'react';
-import clsx from 'clsx';
 import { ThemeProvider } from '@material-ui/core/styles';
 import useTheme from '@material-ui/core/styles/useTheme';
 import createTheme from '@material-ui/core/styles/createTheme';
@@ -13,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Typography from '@material-ui/core/Typography';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 const drawerWidth = 240;
 
@@ -89,9 +89,9 @@ const lightTheme = {
 
 function AppDrawer(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(props.open);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [darkMode, setDarkMode] = React.useState(false);
+  const [open, setOpen] = useState(props.open);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const homeTheme = createTheme(darkMode ? darkTheme : lightTheme);
   const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
 
@@ -157,6 +157,7 @@ function AppDrawer(props) {
           })}
         >
           <div className={classes.drawerHeader} />
+          <CssBaseline />
           {props.children}
         </main>
       </ThemeProvider>

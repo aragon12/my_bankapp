@@ -1,6 +1,5 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -63,7 +62,6 @@ function BalTile(props) {
 
   return (
     <Paper className={classes.paper}>
-      <CssBaseline />
       <div className={classes.content}>
         <Typography
           variant="h5"
