@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
-import BalTile from "./BalTile";
-import TransferTile from "./TransferTile"
+import BalTile from "./tiles/BalTile";
+import TransferTile from "./tiles/TransferTile"
 
 function Home() {
   // Amount default ••••
