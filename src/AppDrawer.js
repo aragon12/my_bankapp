@@ -13,6 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Typography from '@material-ui/core/Typography';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { AuthList } from './DrawerList';
 
 const drawerWidth = 240;
 
@@ -35,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    paddingTop: theme.spacing(7),
+    paddingTop: theme.spacing(8),
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(0),
+    },
   },
   drawerHeader: {
     display: 'flex',
@@ -148,6 +152,9 @@ function AppDrawer(props) {
           }}
           onClose={toggleMobileDrawer}
         >
+          <div onClick={toggleMobileDrawer}>
+            <AuthList path={props.path} />
+          </div>
         </Drawer>
         <main
           className={clsx(classes.content, {
