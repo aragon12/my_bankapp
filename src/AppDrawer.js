@@ -117,30 +117,12 @@ function AppDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classes.appBar}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            onClick={isMobile ? toggleMobileDrawer : toggleDrawer}
-            edge="start"
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.appBarHead}>
-            Bank App
-          </Typography>
-          <IconButton
-            color="inherit"
-            onClick={toggleTheme}
-          >
-            <Brightness4Icon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <CustomAppBar
+        mobile={isMobile}
+        onThemeChange={toggleTheme}
+        onDrawerChange={toggleDrawer}
+        onMobileDrawerChange={toggleMobileDrawer}
+      />
       <ThemeProvider theme={homeTheme}>
         <Drawer
           className={classes.drawer}
@@ -169,6 +151,49 @@ function AppDrawer(props) {
         </main>
       </ThemeProvider>
     </div>
+  );
+}
+
+function CustomAppBar(props) {
+  const classes = useStyles();
+
+  const toggleTheme = () => {
+    props.onThemeChange();
+  };
+
+  const toggleDrawer = () => {
+    props.onDrawerChange();
+  };
+
+  const toggleMobileDrawer = (event) => {
+    props.onMobileDrawerChange(event);
+  };
+
+  return (
+    <AppBar
+      position="fixed"
+      className={classes.appBar}
+    >
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          onClick={props.mobile ? toggleMobileDrawer : toggleDrawer}
+          edge="start"
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" className={classes.appBarHead}>
+          Bank App
+        </Typography>
+        <IconButton
+          color="inherit"
+          onClick={toggleTheme}
+        >
+          <Brightness4Icon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 }
 
