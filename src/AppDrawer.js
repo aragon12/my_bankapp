@@ -135,7 +135,7 @@ function AppDrawer(props) {
           onClose={toggleMobileDrawer}
         >
           <div onClick={toggleMobileDrawer}>
-            <AuthList path={props.path} />
+            <AuthList />
           </div>
         </Drawer>
         <main

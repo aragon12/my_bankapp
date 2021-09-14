@@ -7,9 +7,10 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ReceiptIcon from "@material-ui/icons/Receipt";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-export function AuthList(props) {
+export function AuthList() {
+  const path = useLocation().pathname;
   return (
     <div>
       <List>
@@ -17,7 +18,7 @@ export function AuthList(props) {
           button
           icon={DashboardIcon}
           text='Dashboard'
-          select={props.path === '/'}
+          select={path === '/'}
           component={Link}
           to='/'
         />
@@ -25,7 +26,7 @@ export function AuthList(props) {
           button
           icon={AccountCircleIcon}
           text='Profile'
-          select={props.path === '/profile'}
+          select={path === '/profile'}
           component={Link}
           to='/profile'
         />
@@ -33,7 +34,7 @@ export function AuthList(props) {
           button
           icon={AccountBalanceIcon}
           text='Transfer'
-          select={props.path === '/transfer'}
+          select={path === '/transfer'}
           component={Link}
           to='/transfer'
         />
@@ -41,7 +42,7 @@ export function AuthList(props) {
           button
           icon={ReceiptIcon}
           text='Transactions'
-          select={props.path === '/transactions'}
+          select={path === '/transactions'}
           component={Link}
           to='/transactions'
         />

@@ -2,14 +2,13 @@ import Home from "./Home";
 import Login from "./Login";
 import AppDrawer from "./AppDrawer";
 import Test from "./Test";
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 const isLogged = true;
 
 function App() {
-  const location = useLocation();
   return (
-    <AppDrawer path={location.pathname} open={true}>
+    <AppDrawer open={true}>
       <Switch>
         <PrivateRoute isLogged={isLogged} exact path='/' component={Home} />
         <RestrictedRoute isLogged={isLogged} exact path='/login' component={Login} />
