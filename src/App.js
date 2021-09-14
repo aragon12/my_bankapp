@@ -8,7 +8,7 @@ const isLogged = true;
 
 function App() {
   return (
-    <AppDrawer open={true}>
+    <AppDrawer>
       <Switch>
         <PrivateRoute isLogged={isLogged} exact path='/' component={Home} />
         <RestrictedRoute isLogged={isLogged} exact path='/login' component={Login} />

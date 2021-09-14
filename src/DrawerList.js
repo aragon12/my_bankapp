@@ -9,7 +9,7 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import { Link, useLocation } from "react-router-dom";
 
-export function AuthList() {
+function DrawerList() {
   const path = useLocation().pathname;
   return (
     <div>
@@ -63,4 +63,5 @@ function CustomListItem({ icon: Icon, text, select, ...rest }) {
   );
 }
 
+export default DrawerList;
 

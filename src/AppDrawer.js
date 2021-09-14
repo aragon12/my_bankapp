@@ -2,9 +2,9 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import useTheme from '@material-ui/core/styles/useTheme';
 import createTheme from '@material-ui/core/styles/createTheme';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import Drawer from '@material-ui/core/Drawer';
+import { Drawer as BaseDrawer } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
+import { AppBar as BaseAppBar } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -13,7 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Typography from '@material-ui/core/Typography';
 import { useState } from 'react';
 import clsx from 'clsx';
-import { AuthList } from './DrawerList';
+import DrawerList from './DrawerList';
 
 const drawerWidth = 240;
 
@@ -93,7 +93,7 @@ const lightTheme = {
 
 function AppDrawer(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(props.open);
+  const [open, setOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const homeTheme = createTheme(darkMode ? darkTheme : lightTheme);
@@ -117,27 +117,17 @@ function AppDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <CustomAppBar
-        mobile={isMobile}
+      <AppBar
         onThemeChange={toggleTheme}
         onDrawerChange={toggleDrawer}
         onMobileDrawerChange={toggleMobileDrawer}
       />
       <ThemeProvider theme={homeTheme}>
         <Drawer
-          className={classes.drawer}
-          variant={isMobile ? "temporary" : "persistent"}
-          anchor="left"
-          open={isMobile ? mobileOpen : open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-          onClose={toggleMobileDrawer}
-        >
-          <div onClick={toggleMobileDrawer}>
-            <AuthList />
-          </div>
-        </Drawer>
+          mobileOpen={mobileOpen}
+          mobileClose={toggleMobileDrawer}
+          deskOpen={open}
+        />
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
@@ -154,30 +144,43 @@ function AppDrawer(props) {
   );
 }
 
-function CustomAppBar(props) {
+function Drawer({ mobileOpen, mobileClose, deskOpen }) {
+  const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
+  const variant = isMobile ? "temporary" : "persistent";
+  const open = isMobile ? mobileOpen : deskOpen;
   const classes = useStyles();
 
-  const toggleTheme = () => {
-    props.onThemeChange();
-  };
+  return (
+    <BaseDrawer
+      variant={variant}
+      open={open}
+      onClose={mobileClose}
+      className={classes.drawer}
+      anchor="left"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
+      <div onClick={mobileClose}>
+        <DrawerList />
+      </div>
+    </BaseDrawer>
+  )
+}
 
-  const toggleDrawer = () => {
-    props.onDrawerChange();
-  };
-
-  const toggleMobileDrawer = (event) => {
-    props.onMobileDrawerChange(event);
-  };
+function AppBar({ onThemeChange, onDrawerChange, onMobileDrawerChange }) {
+  const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
+  const classes = useStyles();
 
   return (
-    <AppBar
+    <BaseAppBar
       position="fixed"
       className={classes.appBar}
     >
       <Toolbar>
         <IconButton
           color="inherit"
-          onClick={props.mobile ? toggleMobileDrawer : toggleDrawer}
+          onClick={isMobile ? onMobileDrawerChange : onDrawerChange}
           edge="start"
           className={classes.menuButton}
         >
@@ -188,12 +191,12 @@ function CustomAppBar(props) {
         </Typography>
         <IconButton
           color="inherit"
-          onClick={toggleTheme}
+          onClick={onThemeChange}
         >
           <Brightness4Icon />
         </IconButton>
       </Toolbar>
-    </AppBar>
+    </BaseAppBar>
   );
 }
 
