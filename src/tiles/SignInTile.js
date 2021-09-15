@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -124,7 +125,7 @@ function SignInTile() {
             Sign In
           </Button>
         </div >
-        <Link href="#" variant="body2">
+        <Link variant="body2" component={RouterLink} to='/register'>
           {"Don't have an account? Sign Up"}
         </Link>
       </form>

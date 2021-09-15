@@ -4,17 +4,17 @@ import AppDrawer from "./AppDrawer";
 import Test from "./Test";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-const isLogged = true;
+const isLogged = false;
 
 function App() {
   return (
-    <AppDrawer>
-      <Switch>
+    <Switch>
+      <AppDrawer isLogged={isLogged}>
         <PrivateRoute isLogged={isLogged} exact path='/' component={Home} />
         <RestrictedRoute isLogged={isLogged} exact path='/login' component={Login} />
         <Route exact path='/test' component={Test} />
-      </Switch>
-    </AppDrawer>
+      </AppDrawer>
+    </Switch>
   )
 }
 

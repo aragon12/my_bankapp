@@ -117,22 +117,28 @@ function AppDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        onThemeChange={toggleTheme}
-        onDrawerChange={toggleDrawer}
-        onMobileDrawerChange={toggleMobileDrawer}
-      />
+      {props.isLogged ?
+        <AppBar
+          onThemeChange={toggleTheme}
+          onDrawerChange={toggleDrawer}
+          onMobileDrawerChange={toggleMobileDrawer}
+        /> :
+        <StaticAppBar onThemeChange={toggleTheme} />
+      }
       <ThemeProvider theme={homeTheme}>
-        <Drawer
-          mobileOpen={mobileOpen}
-          mobileClose={toggleMobileDrawer}
-          deskOpen={open}
-        />
+        {props.isLogged &&
+          <Drawer
+            mobileOpen={mobileOpen}
+            mobileClose={toggleMobileDrawer}
+            deskOpen={open}
+          />}
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           }, {
             [classes.contentShift]: isMobile,
+          }, {
+            [classes.contentShift]: props.isLogged,
           })}
         >
           <div className={classes.drawerHeader} />
@@ -168,6 +174,27 @@ function Drawer({ mobileOpen, mobileClose, deskOpen }) {
   )
 }
 
+function StaticAppBar({ onThemeChange }) {
+  return (
+    <BaseAppBar
+      position="fixed"
+    >
+      <Toolbar>
+        <Typography variant="h6" style={{flexGrow: 1}}>
+          Bank App
+        </Typography>
+        <IconButton
+          color="inherit"
+          edge="end"
+          onClick={onThemeChange}
+        >
+          <Brightness4Icon />
+        </IconButton>
+      </Toolbar>
+    </BaseAppBar>
+  );
+}
+
 function AppBar({ onThemeChange, onDrawerChange, onMobileDrawerChange }) {
   const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
   const classes = useStyles();
@@ -191,6 +218,7 @@ function AppBar({ onThemeChange, onDrawerChange, onMobileDrawerChange }) {
         </Typography>
         <IconButton
           color="inherit"
+          edge="end"
           onClick={onThemeChange}
         >
           <Brightness4Icon />
