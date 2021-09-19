@@ -4,7 +4,7 @@ import AppDrawer from "./AppDrawer";
 import Test from "./Test";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-const isLogged = false;
+const isLogged = true;
 
 function App() {
   return (

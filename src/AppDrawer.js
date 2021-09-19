@@ -65,6 +65,10 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  normalcontent: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
 }));
 
 const darkTheme = {
@@ -114,6 +118,11 @@ function AppDrawer(props) {
     setDarkMode(!darkMode);
   };
 
+  const shifter = clsx(classes.content, {
+    [classes.contentShift]: open,
+  }
+  )
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -133,13 +142,7 @@ function AppDrawer(props) {
             deskOpen={open}
           />}
         <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          }, {
-            [classes.contentShift]: isMobile,
-          }, {
-            [classes.contentShift]: props.isLogged,
-          })}
+          className={props.isLogged && !isMobile?shifter:classes.normalcontent}
         >
           <div className={classes.drawerHeader} />
           <CssBaseline />
@@ -180,7 +183,7 @@ function StaticAppBar({ onThemeChange }) {
       position="fixed"
     >
       <Toolbar>
-        <Typography variant="h6" style={{flexGrow: 1}}>
+        <Typography variant="h6" style={{ flexGrow: 1 }}>
           Bank App
         </Typography>
         <IconButton
