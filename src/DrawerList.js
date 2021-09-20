@@ -52,13 +52,20 @@ function DrawerList() {
 };
 
 function CustomListItem({ icon: Icon, text, select, ...rest }) {
-  text = select ? <Typography color='primary'>{text}</Typography> : text;
+  const list_text = select ?
+    <Typography
+      style={{ fontWeight: 'bold' }}
+      color='primary'>
+      {text}
+    </Typography>
+    : text;
+    
   return (
-    <ListItem selected={select} {...rest}>
+    <ListItem {...rest}>
       <ListItemIcon>
         <Icon color={select ? 'primary' : undefined} />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText primary={list_text} />
     </ListItem>
   );
 }
