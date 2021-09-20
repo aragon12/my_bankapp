@@ -1,10 +1,10 @@
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import SignInTile from "./tiles/SignInTile";
 function Login() {
   return (
-      <Container component="main" maxWidth="xs">
-        <SignInTile />
-      </Container>
+    <Grid container justifyContent='center'>
+      <SignInTile />
+    </Grid>
   )
 }
 
