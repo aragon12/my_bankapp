@@ -1,4 +1,4 @@
-import Home from "./Home";
+import Home from "./Dashboard";
 import Login from "./Login";
 import AppDrawer from "./AppDrawer";
 import Test from "./Test";
