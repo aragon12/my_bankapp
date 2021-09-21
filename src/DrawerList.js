@@ -3,6 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
@@ -10,60 +11,63 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import { Link, useLocation } from "react-router-dom";
 
 function DrawerList() {
-  const path = useLocation().pathname;
   return (
     <div>
       <List>
         <CustomListItem
-          button
           icon={DashboardIcon}
           text='Dashboard'
-          select={path === '/'}
-          component={Link}
-          to='/'
+          url='/'
         />
         <CustomListItem
-          button
           icon={AccountCircleIcon}
           text='Profile'
-          select={path === '/profile'}
-          component={Link}
-          to='/profile'
+          url='/profile'
         />
         <CustomListItem
-          button
           icon={AccountBalanceIcon}
           text='Transfer'
-          select={path === '/transfer'}
-          component={Link}
-          to='/transfer'
+          url='/transfer'
         />
         <CustomListItem
-          button
           icon={ReceiptIcon}
           text='Transactions'
-          select={path === '/transactions'}
-          component={Link}
-          to='/transactions'
+          url='/transactions'
         />
       </List>
     </div>
   )
 };
 
-function CustomListItem({ icon: Icon, text, select, ...rest }) {
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    marginRight: theme.spacing(-2),
+  },
+}));
+
+function CustomListItem({ icon: Icon, text, url, ...rest }) {
+  const classes = useStyles();
+  const path = useLocation().pathname;
+  const select = path === url;
+  const color = select ? 'primary' : 'action';
   const list_text = select ?
     <Typography
       style={{ fontWeight: 'bold' }}
-      color='primary'>
+      color='primary'
+    >
       {text}
     </Typography>
     : text;
-    
+
   return (
-    <ListItem {...rest}>
-      <ListItemIcon>
-        <Icon color={select ? 'primary' : undefined} />
+    <ListItem
+      button
+      component={Link}
+      to={url}
+      {...rest}
+    >
+      <ListItemIcon  className={classes.icon}>
+        <Icon color={color} />
       </ListItemIcon>
       <ListItemText primary={list_text} />
     </ListItem>
