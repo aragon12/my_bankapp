@@ -3,18 +3,22 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import createTheme from '@material-ui/core/styles/createTheme';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Drawer as BaseDrawer } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useState } from 'react';
 import clsx from 'clsx';
 import DrawerList from './DrawerList';
-import {AppBar, StaticAppBar} from './AppBars';
+import { Toolbar, StaticToolbar } from './Toolbars';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
   },
   drawer: {
     width: drawerWidth,
@@ -112,14 +116,16 @@ function AppDrawer(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {props.isLogged ?
-        <AppBar
-          onThemeChange={toggleTheme}
-          onDrawerChange={toggleDrawer}
-          onMobileDrawerChange={toggleMobileDrawer}
-        /> :
-        <StaticAppBar onThemeChange={toggleTheme} />
-      }
+      <AppBar position='fixed' className={classes.appBar}>
+        {props.isLogged ?
+          <Toolbar
+            onThemeChange={toggleTheme}
+            onDrawerChange={toggleDrawer}
+            onMobileDrawerChange={toggleMobileDrawer}
+          /> :
+          <StaticToolbar onThemeChange={toggleTheme} />
+        }
+      </AppBar>
       <ThemeProvider theme={homeTheme}>
         {props.isLogged &&
           <Drawer
@@ -128,7 +134,7 @@ function AppDrawer(props) {
             deskOpen={open}
           />}
         <main
-          className={props.isLogged && !isMobile?shifter:classes.normalcontent}
+          className={props.isLogged && !isMobile ? shifter : classes.normalcontent}
         >
           <div className={classes.drawerHeader} />
           <CssBaseline />
