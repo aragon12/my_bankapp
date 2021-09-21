@@ -39,23 +39,21 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+  shiftOut: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
   },
-  contentShift: {
+  shiftIn: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
   },
-  normalcontent: {
+  content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
@@ -92,6 +90,13 @@ function AppDrawer(props) {
   const [darkMode, setDarkMode] = useState(false);
   const homeTheme = createTheme(darkMode ? darkTheme : lightTheme);
   const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
+  const shifterClass = clsx(
+    classes.content,
+    classes.shiftOut, {
+    [classes.shiftIn]: open,
+  })
+  const contentClass = props.isLogged && !isMobile ? shifterClass : classes.content;
+
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -107,11 +112,6 @@ function AppDrawer(props) {
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
-
-  const shifter = clsx(classes.content, {
-    [classes.contentShift]: open,
-  }
-  )
 
   return (
     <div className={classes.root}>
@@ -134,7 +134,7 @@ function AppDrawer(props) {
             deskOpen={open}
           />}
         <main
-          className={props.isLogged && !isMobile ? shifter : classes.normalcontent}
+          className={contentClass}
         >
           <div className={classes.drawerHeader} />
           <CssBaseline />
