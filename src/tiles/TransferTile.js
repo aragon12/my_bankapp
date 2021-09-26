@@ -8,6 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -46,19 +47,25 @@ function TransferTile() {
       <List dense className={classes.mlist}>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar className={classes.avatar} />
+            <Avatar className={classes.avatar}>
+              <AccountBalanceIcon />
+            </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Shubham Mishra" secondary="XXXXX856" />
         </ListItem>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar className={classes.avatar} />
+            <Avatar className={classes.avatar}>
+              <AccountBalanceIcon />
+            </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Harshit" secondary="XXXXX349" />
         </ListItem>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar className={classes.avatar} />
+            <Avatar className={classes.avatar}>
+              <AccountBalanceIcon />
+            </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Harshit" secondary="XXXXX349" />
         </ListItem>
